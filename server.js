@@ -49,6 +49,14 @@ app.post('/books', (req, res) => {
     });
 });
 
+// Show route
+
+app.get('/books/:id', (req, res) => {
+    Book.findById(req.params.id, (err, book) => {
+        res.render('show.ejs', { book });
+    });
+});
+
 // tell the app to listen
 
 const PORT = process.env.PORT; 
