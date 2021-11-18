@@ -24,6 +24,39 @@ app.use(express.urlencoded({ extended: false })); // creates req.body
 
 // mount routes
 
+// Seed route
+
+app.get('/books/seed', async (req, res) => {
+    const data = [
+        {
+            title: 'The Art of War',
+            author: 'Sun Tzu'
+        },
+        {
+            title: 'How to Win Friends and Influence Peole',
+            author: 'Dale Carnegie'
+        },
+        {
+            title: 'Think Grow Rich',
+            author: 'Napolean Hill'
+        },
+        {
+            title: 'Rich Dad Poor Dad',
+            author: 'Robert Kiyosaki'
+        },
+    ];
+    await Book.deleteMany({});
+    await Book.create(data);
+    res.redirect('/books');
+});
+
+
+app.get('/destroy-data', async (req, res) => {
+    await Book.deleteMany({});
+    res.redirect('/books');
+});
+
+
 // Index Route
 app.get('/books', (req, res) => {
     Book.find({}, (err, books) => {
