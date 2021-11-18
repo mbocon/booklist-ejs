@@ -20,10 +20,17 @@ db.on('error', (err) => console.log('MongoDB Error: ' + err.message));
 
 
 // mount middleware
-app.use(express.urlencoded({ extended: true })); // creates req.body
+app.use(express.urlencoded({ extended: false })); // creates req.body
 
 // mount routes
-
+app.post('/books', (req, res) => {
+    if(req.body.completed === 'on') {
+        req.body.completed = true;
+    } else {
+        req.body.completed = false;
+    }
+    res.send(req.body);
+});
 
 // tell the app to listen
 
