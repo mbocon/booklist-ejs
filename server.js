@@ -1,7 +1,7 @@
 // require deps
 const express = require('express');
 const mongoose = require('mongoose');
-
+const Book = require('./models/book');
 // initialize app
 const app = express();
 
@@ -23,13 +23,22 @@ db.on('error', (err) => console.log('MongoDB Error: ' + err.message));
 app.use(express.urlencoded({ extended: false })); // creates req.body
 
 // mount routes
+
+// New Route
+app.get('/books/new', (req, res) => {
+    res.send('new');
+});
+
+// Create Route
 app.post('/books', (req, res) => {
     if(req.body.completed === 'on') {
         req.body.completed = true;
     } else {
         req.body.completed = false;
     }
-    res.send(req.body);
+    Book.create(req.body, (err, book) => {
+        res.send(book);
+    });
 });
 
 // tell the app to listen
