@@ -24,9 +24,17 @@ app.use(express.urlencoded({ extended: false })); // creates req.body
 
 // mount routes
 
+// Index Route
+app.get('/books', (req, res) => {
+    Book.find({}, (err, books) => {
+        res.render('index.ejs', { books });
+    });
+});
+
+
 // New Route
 app.get('/books/new', (req, res) => {
-    res.send('new');
+    res.render('new.ejs');
 });
 
 // Create Route
@@ -37,7 +45,7 @@ app.post('/books', (req, res) => {
         req.body.completed = false;
     }
     Book.create(req.body, (err, book) => {
-        res.send(book);
+        res.redirect('/books');
     });
 });
 
