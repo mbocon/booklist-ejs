@@ -10,9 +10,9 @@
     <h1>Edit Book Page</h1>
     <form action="/books/<%= book._id %>?_method=PUT" method="POST"><br>
         Title: <input type="text" name="title" value="<%= book.title %>"><br>
-        Author: <input type="text" name="author" value="<% book.author %>"><br>
-        Completed: <input type="checkbox" name="completed" <% if(book.completed) { %> checked <% } %>><br>
-        <input type="submit" value="Add Book">
+        Author: <input type="text" name="author" value="<%= book.author %>"><br>
+        Completed: <input type="checkbox" name="completed" <%= book.completed ? 'checked' : '' %>><br>
+        <input type="submit" value="Add Book">  
     </form>
 </body>
 </html>
