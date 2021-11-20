@@ -8,7 +8,9 @@ const Book = require('../models/book');
 
 // Seed route
 
-booksRouter.get('/books/seed', async (req, res) => {
+// We are already at /books/
+
+booksRouter.get('/seed', async (req, res) => {
     const data = [
         {
             title: 'The Art of War',
@@ -40,7 +42,7 @@ booksRouter.get('/destroy-data', async (req, res) => {
 
 
 // Index Route
-booksRouter.get('/books', (req, res) => {
+booksRouter.get('/', (req, res) => {
     Book.find({}, (err, books) => {
         res.render('index.ejs', { books });
     });
@@ -48,14 +50,14 @@ booksRouter.get('/books', (req, res) => {
 
 
 // New Route
-booksRouter.get('/books/new', (req, res) => {
+booksRouter.get('/new', (req, res) => {
     res.render('new.ejs');
 });
 
 
 // Delete Route
 
-booksRouter.delete('/books/:id', (req, res) => {
+booksRouter.delete('/:id', (req, res) => {
     Book.findByIdAndRemove(req.params.id, (err, deletedBook) => {
         res.redirect('/books');
     });
@@ -63,7 +65,7 @@ booksRouter.delete('/books/:id', (req, res) => {
 
 // Update route
 
-booksRouter.put('/books/:id', (req, res) => {
+booksRouter.put('/:id', (req, res) => {
     req.body.completed = !!req.body.completed; // !!'on' === true || !!undefined === false
     Book.findByIdAndUpdate(
         req.params.id, 
@@ -76,7 +78,7 @@ booksRouter.put('/books/:id', (req, res) => {
 
 
 // Create Route
-booksRouter.post('/books', (req, res) => {
+booksRouter.post('/', (req, res) => {
     if(req.body.completed === 'on') {
         req.body.completed = true;
     } else {
@@ -90,7 +92,7 @@ booksRouter.post('/books', (req, res) => {
 
 // Edit route
 
-booksRouter.get('/books/:id/edit', (req, res) => {
+booksRouter.get('/:id/edit', (req, res) => {
     Book.findById(req.params.id, (err, book) => {
         res.render('edit.ejs', { book });
     });
@@ -99,7 +101,7 @@ booksRouter.get('/books/:id/edit', (req, res) => {
 
 // Show route
 
-booksRouter.get('/books/:id', (req, res) => {
+booksRouter.get('/:id', (req, res) => {
     // Book.findById(req.params.id).then(() => {
     //     res.render('show.ejs', { book })
     // });

@@ -2,7 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
-const booksRouter = require('./controllers/books');
+const booksController = require('./controllers/books');
 // initialize app
 const app = express();
 
@@ -23,9 +23,9 @@ db.on('error', (err) => console.log('MongoDB Error: ' + err.message));
 // mount middleware
 app.use(express.urlencoded({ extended: false })); // creates req.body
 app.use(methodOverride('_method'));
-// mount routes
-app.use('/', booksRouter);
 
+// mount routes
+app.use('/books', booksController);
 
 // tell the app to listen
 
