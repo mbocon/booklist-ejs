@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Book = require('./models/book');
+const methodOverride = require('method-override');
 // initialize app
 const app = express();
 
@@ -21,7 +22,7 @@ db.on('error', (err) => console.log('MongoDB Error: ' + err.message));
 
 // mount middleware
 app.use(express.urlencoded({ extended: false })); // creates req.body
-
+app.use(methodOverride('_method'));
 // mount routes
 
 // Seed route
@@ -69,6 +70,16 @@ app.get('/books', (req, res) => {
 app.get('/books/new', (req, res) => {
     res.render('new.ejs');
 });
+
+
+// Delete Route
+
+app.delete('/books/:id', (req, res) => {
+    Book.findByIdAndRemove(req.params.id, (err, deletedBook) => {
+        res.redirect('/books');
+    });
+});
+
 
 // Create Route
 app.post('/books', (req, res) => {
