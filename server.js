@@ -81,6 +81,19 @@ app.delete('/books/:id', (req, res) => {
     });
 });
 
+// Update route
+
+app.put('/books/:id', (req, res) => {
+    req.body.completed = !!req.body.completed; // !!'on' === true || !!undefined === false
+    Book.findByIdAndUpdate(
+        req.params.id, 
+        req.body, 
+        { new: true },
+        (err, book) => {
+          res.redirect('/books')
+    });
+});
+
 
 // Create Route
 app.post('/books', (req, res) => {
