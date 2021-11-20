@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const Book = require('./models/book');
 const methodOverride = require('method-override');
+
 // initialize app
 const app = express();
 
@@ -92,6 +93,16 @@ app.post('/books', (req, res) => {
         res.redirect('/books');
     });
 });
+
+
+// Edit route
+
+app.get('/books/:id/edit', (req, res) => {
+    Book.findById(req.params.id, (err, book) => {
+        res.render('edit.ejs', { book });
+    });
+});
+
 
 // Show route
 
