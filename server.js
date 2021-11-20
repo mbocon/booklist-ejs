@@ -90,7 +90,7 @@ app.put('/books/:id', (req, res) => {
         req.body, 
         { new: true },
         (err, book) => {
-          res.redirect('/books')
+          res.redirect(`/books/${req.params.id}`)
     });
 });
 
