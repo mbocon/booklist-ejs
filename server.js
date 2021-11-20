@@ -24,7 +24,7 @@ db.on('error', (err) => console.log('MongoDB Error: ' + err.message));
 app.use(express.urlencoded({ extended: false })); // creates req.body
 app.use(methodOverride('_method'));
 // mount routes
-
+app.use('/', booksRouter);
 
 
 // tell the app to listen
