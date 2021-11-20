@@ -18,6 +18,8 @@
                 <a href="/books/<%= b._id %>">
                     <%= b.title %>
                 </a>
+                - 
+                <p style="display: inline; margin-left: .5rem;">There are currently <%= b.qty %> of these available</p>
             </li>
         <% }) %>
     </ul>

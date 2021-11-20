@@ -9,11 +9,15 @@
 <body>
     <h1>Details for <%= book.title %></h1>
     <p>Written by: <%= book.author %></p>
+    <p>There are currently <%= book.qty %> of these in stock</p>
     <% if(book.completed) { %>
         <p>You have finished this book</p>
     <% } else { %>
         <p>You have not finished this book</p>
     <% } %>
     <a href="/books">Go back to book list</a>
+        <form action="/books/<%= book._id%>/buy" method="POST">
+            <input <%= book.qty ? '' : 'disabled' %> type="submit" value="<%= book.qty ? 'Buy': 'Out of Stock' %>">
+        </form> 
     </body>
 </html>

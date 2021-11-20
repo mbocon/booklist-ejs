@@ -14,19 +14,23 @@ booksRouter.get('/seed', async (req, res) => {
     const data = [
         {
             title: 'The Art of War',
-            author: 'Sun Tzu'
+            author: 'Sun Tzu',
+            qty: 5
         },
         {
             title: 'How to Win Friends and Influence People',
-            author: 'Dale Carnegie'
+            author: 'Dale Carnegie',
+            qty: 5
         },
         {
             title: 'Think & Grow Rich',
-            author: 'Napolean Hill'
+            author: 'Napolean Hill',
+            qty: 5
         },
         {
             title: 'Rich Dad Poor Dad',
-            author: 'Robert Kiyosaki'
+            author: 'Robert Kiyosaki',
+            qty: 5
         },
     ];
     await Book.deleteMany({});
@@ -111,5 +115,20 @@ booksRouter.get('/:id', (req, res) => {
     });
 });
 // export the router object so that we require it in server.js
+
+
+// Buy Route
+booksRouter.post('/:id/buy', (req, res) => {
+    Book.findById(req.params.id, (err, book) => {
+        if(book.qty) {
+            book.qty--
+            book.save(() => {
+                res.redirect(`/books/${book._id}`);
+            });
+        } else {
+            res.redirect(`/books/${book._id}`);
+        }
+    });
+});
 
 module.exports = booksRouter;
