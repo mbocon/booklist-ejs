@@ -33,11 +33,11 @@ app.get('/books/seed', async (req, res) => {
             author: 'Sun Tzu'
         },
         {
-            title: 'How to Win Friends and Influence Peole',
+            title: 'How to Win Friends and Influence People',
             author: 'Dale Carnegie'
         },
         {
-            title: 'Think Grow Rich',
+            title: 'Think & Grow Rich',
             author: 'Napolean Hill'
         },
         {
