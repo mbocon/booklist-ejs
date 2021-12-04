@@ -6,6 +6,18 @@ const booksRouter = express.Router();
 const Book = require('../models/book');
 // list our router actions
 
+
+booksRouter.get('/search', async (req, res) => {
+    const term = req.query.term;
+    if(term) {
+        const results = await Book.find({ title: { $regex: term }});
+        res.json({ results });
+    } else {
+        // we are going to send the search page to the user
+        res.render('search.ejs');
+    }
+});
+
 // Seed route
 
 // We are already at /books/

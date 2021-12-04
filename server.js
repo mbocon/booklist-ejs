@@ -23,6 +23,7 @@ db.on('error', (err) => console.log('MongoDB Error: ' + err.message));
 // mount middleware
 app.use(express.urlencoded({ extended: false })); // creates req.body
 app.use(methodOverride('_method'));
+app.use(express.static('public'));
 
 // mount routes
 app.use('/books', booksController);
