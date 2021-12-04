@@ -29,8 +29,14 @@
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
-        </select>
-        <textarea name="text"></textarea>
+        </select><br />
+        <textarea name="text"></textarea><br />
         <input type="submit" value="Add Review">
     </form>
+    <% if(book.reviews.length > 0) { %>
+        <h3>Current Reviews</h3>
+        <% book.reviews.forEach(r => { %>
+            <p><%= r.text %> - Rating: <%= r.rating %></p>
+        <% }); %>
+    <% } %>
 </html>
