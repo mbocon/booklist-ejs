@@ -20,4 +20,17 @@
             <input <%= book.qty ? '' : 'disabled' %> type="submit" value="<%= book.qty ? 'Buy': 'Out of Stock' %>">
         </form> 
     </body>
+
+    <h3>Write a Review For This Book</h3>
+    <form action="/books/<%= book._id%>/reviews" method="POST">
+        <select name="rating">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+        <textarea name="text"></textarea>
+        <input type="submit" value="Add Review">
+    </form>
 </html>
