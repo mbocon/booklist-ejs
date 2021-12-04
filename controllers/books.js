@@ -6,6 +6,7 @@ const booksRouter = express.Router();
 const Book = require('../models/book');
 // list our router actions
 
+// Search Route
 
 booksRouter.get('/search', async (req, res) => {
     const term = req.query.term;
@@ -17,6 +18,22 @@ booksRouter.get('/search', async (req, res) => {
         res.render('search.ejs');
     }
 });
+
+
+
+// Nested Resource Routes
+booksRouter.post('/:id/reviews', async (req, res) => {
+    // find the book we need to make a review for
+    const book = await Book.findById(req.params.id);
+    // insert req.body (our review) into the review array for the found book
+    book.reviews.push(req.body);
+    // save the current state of the book document
+    await book.save();
+    // redirect back to the client
+    res.redirect(`/books/${book._id}`);
+});
+
+
 
 // Seed route
 
