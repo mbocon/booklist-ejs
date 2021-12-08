@@ -4,6 +4,7 @@ const express = require('express');
 const booksRouter = express.Router();
 
 const Book = require('../models/book');
+const Author = require('../models/author');
 // list our router actions
 
 // Search Route
@@ -43,22 +44,18 @@ booksRouter.get('/seed', async (req, res) => {
     const data = [
         {
             title: 'The Art of War',
-            author: 'Sun Tzu',
             qty: 5
         },
         {
             title: 'How to Win Friends and Influence People',
-            author: 'Dale Carnegie',
             qty: 5
         },
         {
             title: 'Think & Grow Rich',
-            author: 'Napolean Hill',
             qty: 5
         },
         {
             title: 'Rich Dad Poor Dad',
-            author: 'Robert Kiyosaki',
             qty: 5
         },
     ];
@@ -83,8 +80,9 @@ booksRouter.get('/', (req, res) => {
 
 
 // New Route
-booksRouter.get('/new', (req, res) => {
-    res.render('new.ejs');
+booksRouter.get('/new', async (req, res) => {
+    const authors = await Author.find({});
+    res.render('new.ejs', { authors });
 });
 
 
@@ -134,16 +132,11 @@ booksRouter.get('/:id/edit', (req, res) => {
 
 // Show route
 
-booksRouter.get('/:id', (req, res) => {
-    // Book.findById(req.params.id).then(() => {
-    //     res.render('show.ejs', { book })
-    // });
-
-    Book.findById(req.params.id, (err, book) => {
-        res.render('show.ejs', { book });
-    });
+booksRouter.get('/:id', async (req, res) => {
+    const book = await Book.findById(req.params.id).populate('author');
+    res.render('show.ejs', { book });
 });
-// export the router object so that we require it in server.js
+
 
 
 // Buy Route

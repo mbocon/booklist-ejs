@@ -16,7 +16,7 @@ const reviewSchema = new Schema({
 
 const bookSchema = new Schema({
     title: { type: String, required: true, lowercase: true },
-    author: { type: String, required: true, lowercase: true },
+    author: { type: Schema.Types.ObjectId, ref: 'Author' },
     completed: Boolean,
     qty: { type: Number, default: 5},
     reviews: [reviewSchema] // this results in us being able to insert documents in this array

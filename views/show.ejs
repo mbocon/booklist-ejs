@@ -8,7 +8,15 @@
 </head>
 <body>
     <h1>Details for <%= book.title %></h1>
-    <p>Written by: <%= book.author %></p>
+    
+    <% console.log(book) %>
+    
+    <% if(book.author) { %>
+        <p>Written by: <%= book.author.firstName %> <%= book.author.lastName %></p>
+    <% } else { %>
+        <p>This book doesn't have an author yet</p>
+        <a href="/authors/new">Add them now</a>
+    <% } %>
     <p>There are currently <%= book.qty %> of these in stock</p>
     <% if(book.completed) { %>
         <p>You have finished this book</p>

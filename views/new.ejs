@@ -10,8 +10,13 @@
     <h1>New Book Page</h1>
     <form action="/books" method="post"><br>
         Title: <input type="text" name="title"><br>
-        Author: <input type="text" name="author"><br>
         Completed: <input type="checkbox" name="completed"><br>
+        Choose Author: <select name="author">
+                            <% authors.forEach(a => { %>
+                                <option value="<%= a._id %>"><%= a.firstName %> <%= a.lastName %></option>
+                            <% }) %>
+                       </select><br>
+        Author Not In Database? <a href="/authors/new">Add them now</a><br>
         <input type="submit" value="Add Book">
     </form>
 </body>

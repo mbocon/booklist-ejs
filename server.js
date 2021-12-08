@@ -3,6 +3,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
 const booksController = require('./controllers/books');
+const authorsController = require('./controllers/authors');
 // initialize app
 const app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static('public'));
 
 // mount routes
 app.use('/books', booksController);
+app.use('/authors', authorsController);
 
 // tell the app to listen
 
