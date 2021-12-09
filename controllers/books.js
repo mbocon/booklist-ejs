@@ -2,9 +2,9 @@
 const express = require('express');
 // create a router object
 const booksRouter = express.Router();
-
 const Book = require('../models/book');
 const Author = require('../models/author');
+const cloudinary = require('cloudinary').v2;
 // list our router actions
 
 // Search Route
@@ -115,9 +115,18 @@ booksRouter.post('/', (req, res) => {
     } else {
         req.body.completed = false;
     }
-    Book.create(req.body, (err, book) => {
-        res.redirect('/books');
-    });
+
+    const photo = req.files.coverImage;
+
+    photo.mv(`./uploads/${photo.name}`);
+
+    cloudinary.uploader.upload(`./uploads/${photo.name}`).then(result => {
+        req.body.coverImage = result.secure_url;
+
+        Book.create(req.body, (err, book) => {
+            res.redirect('/books');
+        });
+    }).catch(error => console.log(error));
 });
 
 

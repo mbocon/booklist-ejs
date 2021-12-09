@@ -19,7 +19,8 @@ const bookSchema = new Schema({
     author: { type: Schema.Types.ObjectId, ref: 'Author' },
     completed: Boolean,
     qty: { type: Number, default: 5},
-    reviews: [reviewSchema] // this results in us being able to insert documents in this array
+    reviews: [reviewSchema], // this results in us being able to insert documents in this array
+    coverImage: String
 }, { timestamps: true });
 
 // export the model to be accessed in server.js

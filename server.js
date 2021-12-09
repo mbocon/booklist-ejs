@@ -2,6 +2,9 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const methodOverride = require('method-override');
+const expressFileUpload = require('express-fileupload');
+const cloudinary = require('cloudinary').v2;
+
 const booksController = require('./controllers/books');
 const authorsController = require('./controllers/authors');
 // initialize app
@@ -9,6 +12,12 @@ const app = express();
 
 // configure settings
 require('dotenv').config();
+
+cloudinary.config({
+    cloud_name: process.env.CLOUD_NAME,
+    api_key: process.env.API_KEY,
+    api_secret: process.env.API_SECRET
+});
 
 // connect to and configure mongoDB with mongoose
 
@@ -25,7 +34,7 @@ db.on('error', (err) => console.log('MongoDB Error: ' + err.message));
 app.use(express.urlencoded({ extended: false })); // creates req.body
 app.use(methodOverride('_method'));
 app.use(express.static('public'));
-
+app.use(expressFileUpload({ createParentPath: true }))
 // mount routes
 app.use('/books', booksController);
 app.use('/authors', authorsController);
